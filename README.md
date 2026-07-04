@@ -1,67 +1,93 @@
-# Active-Directory 
-Active Directory — OU, User, and Group Structure
+Organizational Units, Users, and Groups
+
 Overview
-With the domain controller in place, this project builds the actual organizational structure inside Active Directory — a department-based OU hierarchy, individual user accounts within each department, and security groups used to manage permissions collectively rather than per-user. This structure is the backbone that later GPOs, shared folders, and helpdesk scenarios all attach to.
-# Objectives
 
-- Design a realistic, department-based OU hierarchy under the domain root
-- Populate each department OU with individual user accounts
-- Create security groups per department to centralize permission management
-- Verify user-to-group membership is accurate before relying on it elsewhere
-- Confirm the workflow is repeatable and consistent across multiple departments
-# Step-by-Step
+Building out the Active Directory structure on Houtech: a departmental OU hierarchy, user accounts, and security groups to mirror a real company environment.
 
-- I opened Active Directory Users and Computers and right-clicked the Houtech.local domain to create a new top-level "Department" OU, unchecking "Protect container from accidental deletion" so I could still edit it easily during testing.
+Objectives
 
-![image alt]()
 
-- I created six child OUs under Department: Human Resources (HR), Finance Department, Marketing Department, Information Technology, Sales Department, and Management — mirroring a realistic company structure.
+- Design a top-level OU to house all departmental sub-OUs
+- Create OUs for each department to organize users, groups, and future Group Policy settings
+- Create individual user accounts within their department's OU
+- Create a security group per department and populate it with that department's users
+- Verify account and group membership accuracy throughout
 
-![image alt]()
 
-- I right-clicked the HR OU and chose New > User to start creating accounts inside Houtech.local/Department/Human Resources(HR).
+Process
 
-![image alt]()
+1. Creating the Top-Level OU
 
-- I entered and confirmed a password for the account, leaving "User must change password at next logon" checked to follow standard provisioning practice.
+Opened Active Directory Users and Computers on Houtech, right-clicked the domain (Houtech.local), and selected New > Organizational Unit. The dialog defaults to "Protect container from accidental deletion" checked.
 
-![image alt]()
+![image alt](https://github.com/Hamedadams01/Active-Directory-/blob/main/Screenshot%202026-06-21%20105236.png?raw=true)
 
-- I repeated this process to create four HR accounts: James Carter, Micheal Johnson, Emily Garcia, and David Smith.
+2. Naming the Top-Level OU
 
-![image alt]()
+Named the new OU Department and unchecked "Protect container from accidental deletion" so it could be freely modified while the structure was still being built out.
 
-- I right-clicked the HR OU again and chose New > Group to create #Human_Resources, setting the scope to Global and the type to Security.
+![image alt](https://github.com/Hamedadams01/Active-Directory-/blob/main/Screenshot%202026-06-21%20105300.png?raw=true)
 
-![image alt]()
+3. Building the Department Sub-OUs
 
-- I opened David Smith's properties to confirm his General tab details were correct before adding him to a group.
+Inside the Department OU, six Department OUs were created: Human Resources (HR), Finance Department, Marketing Department, Information Technology, Sales Department, and Management.
 
-![image alt]()
+![image alt](https://github.com/Hamedadams01/Active-Directory-/blob/main/Screenshot%202026-06-21%20105936.png?raw=true)
 
-- I checked David Smith's Member Of tab and confirmed he only belonged to the default Domain Users group.
+4. Creating a User in the HR OU
 
-![image alt]()
+Right-clicked the Human Resources (HR) OU and used New > User to open the user creation wizard, building the account inside Houtech.local/Department/Human Resources(HR).
+![image alt](https://github.com/Hamedadams01/Active-Directory-/blob/main/Screenshot%202026-06-21%20105950.png?raw=true
+)
+5. Setting the Account Password
 
-- I clicked Add on the Member Of tab and typed "#Human_Resources" to add David Smith to the HR security group.
+On the next screen, set and confirmed the account password and left "User must change password at next logon" checked, following standard account provisioning practice.
 
-![image alt]()
+![image alt](https://github.com/Hamedadams01/Active-Directory-/blob/main/Screenshot%202026-06-21%20110046.png?raw=true)
 
-- I opened the #Human_Resources group's Members tab and confirmed all four HR users were listed correctly.
+6. Repeating for Additional HR Users
 
-![image alt]()
+Repeated the New User wizard for additional accounts (e.g., Emily Garcia), each auto-populating a logon name based on first initial + last name.
 
-- I repeated the same OU, user, and group process for the Sales Department, creating nine users (Gabriel Evans, Luke Carter, Owen Mitchell, Henry Perez, Adrian Ross, Benjamin Allen, Jonathan Walker, Samuel Hall, and Jacob Adams).
+![image alt](https://github.com/Hamedadams01/Active-Directory-/blob/main/Screenshot%202026-07-01%20100955.png?raw=true)
 
-![image alt]()
 
--I opened the #Sales_Department group's Members tab and confirmed all nine Sales users were listed, verifying the workflow was repeatable across departments.
+7. Confirming HR User Accounts
 
-![image alt]()
+Verified the Human Resources OU now contained four user accounts, confirming each was created successfully before moving on to grouping.
 
-# Conclusion
+![image alt](https://github.com/Hamedadams01/Active-Directory-/blob/main/Screenshot%202026-06-21%20110358.png?raw=true)
 
-- A clean, six-department OU hierarchy was built under Houtech.local
-- User accounts were provisioned correctly within their respective department OUs
-- Security groups were created and verified for HR and Sales, with membership confirmed for both
-- This structure is ready to support Group Policy application and permission management by department
+8. Creating the Department Security Group
+
+Right-clicked the HR OU and used New > Group to create #Human_Resources, with group scope set to Global and group type set to Security — a single group to manage permissions and policies for the whole department.
+
+![image alt](https://github.com/Hamedadams01/Active-Directory-/blob/main/Screenshot%202026-06-21%20113557.png?raw=true)
+
+9. Reviewing a User's Account Properties
+
+Opened an HR user's (David Smith's) account properties on the General tab to confirm first name, last name, and display name were all set correctly.
+
+![image alt](https://github.com/Hamedadams01/Active-Directory-/blob/main/Screenshot%202026-06-21%20113646.png?raw=true)
+
+10. Checking Starting Group Membership
+
+Checked the Member Of tab and confirmed the account was currently only a member of the default Domain Users group, which was also set as the primary group.
+
+![image alt](https://github.com/Hamedadams01/Active-Directory-/blob/main/Screenshot%202026-06-21%20113651.png?raw=true)
+
+11. Adding the User to the Department Group
+
+Clicked Add on the Member Of tab, opened the Select Groups dialog, and entered #Human_Resources to link the account to its department's security group.
+
+![image alt](https://github.com/Hamedadams01/Active-Directory-/blob/main/Screenshot%202026-06-21%20113700.png?raw=true)
+
+12. Verifying Group Membership
+
+Opened the #Human_Resources group properties and checked the Members tab, confirming all four HR user accounts were listed.
+![image alt](https://github.com/Hamedadams01/Active-Directory-/blob/main/Screenshot%202026-06-21%20113813.png?raw=true
+)
+13. Repeating Across Departments
+
+Repeated the same OU, user, and group workflow for the Sales Department, then verified the #Sales_Department group's Members tab listed all nine Sales users — confirming the process was repeatable and consistent across departments.
+![image alt](https://github.com/Hamedadams01/Active-Directory-/blob/main/Screenshot%202026-06-21%20115241.png?raw=true)

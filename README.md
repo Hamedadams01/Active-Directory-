@@ -1,10 +1,10 @@
-Organizational Units, Users, and Groups
+# Organizational Units, Users, and Groups
 
-Overview
+## Overview
 
 Building out the Active Directory structure on Houtech: a departmental OU hierarchy, user accounts, and security groups to mirror a real company environment.
 
-Objectives
+## Objectives
 
 
 - Design a top-level OU to house all departmental sub-OUs
@@ -14,7 +14,7 @@ Objectives
 - Verify account and group membership accuracy throughout
 
 
-Process
+## Process
 
 1. Creating the Top-Level OU
 
